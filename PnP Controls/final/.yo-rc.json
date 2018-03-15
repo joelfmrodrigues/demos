@@ -1,0 +1,8 @@
+{
+  "@microsoft/generator-sharepoint": {
+    "version": "1.4.1",
+    "libraryName": "pnp-controls",
+    "libraryId": "2c6b75e0-cecf-4b69-9cec-82987f897aee",
+    "environment": "spo"
+  }
+}
