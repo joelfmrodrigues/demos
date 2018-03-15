@@ -15,8 +15,22 @@ export default class PnPControls extends React.Component<IPnPControlsProps, IPnP
     };
   }
 
+  public componentDidMount() {
+    if (this.props.list !== null && this.props.list !== "" && this.props.list === undefined) {
+      this._getItems();
+    }
+  }
+
+  public componentDidUpdate(prevProps: IPnPControlsProps, prevState: IPnPControlsState) {
+    if (this.props.list !== prevProps.list || this.props.term !== prevProps.term) {
+      if (this.props.list !== null && this.props.list !== "" && this.props.list === undefined) {
+        this._getItems();
+      }
+    }
+  }
+
   public render(): React.ReactElement<IPnPControlsProps> {
-    if (this.props.listId === null || this.props.listId === "" || this.props.listId === undefined) {
+    if (this.props.list === null || this.props.list === "" || this.props.list === undefined) {
       return (
         <Placeholder
           iconName="Edit"
@@ -58,12 +72,12 @@ export default class PnPControls extends React.Component<IPnPControlsProps, IPnP
 
       select = `${select},TaxCatchAll/Term`;
       expand = `${expand},TaxCatchAll`;
-      filter = `TaxCatchAll/Term eq '${term.name}'`
+      filter = `TaxCatchAll/Term eq '${term.name}'`;
     }
 
-    const items = await this.props.sp.web.lists.getById(this.props.listId).items
+    const items = await this.props.sp.web.lists.getById(this.props.list).items
       .select(select)
-      .expand()
+      .expand(expand)
       .filter(filter)
       .get();
 

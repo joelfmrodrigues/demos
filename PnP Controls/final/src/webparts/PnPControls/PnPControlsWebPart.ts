@@ -17,7 +17,7 @@ import { IPnPControlsProps } from './components/IPnPControlsProps';
 
 export interface IPnPControlsWebPartProps {
   sp: SPRest;
-  listId: string;
+  list: string;
   term: ICheckedTerms;
 }
 
@@ -34,7 +34,7 @@ export default class PnPControlsWebPart extends BaseClientSideWebPart<IPnPContro
 
   public render(): void {
 
-    console.info('List Id:', this.properties.listId);
+    console.info('List Id:', this.properties.list);
     console.info('Term:', this.properties.term);
 
     const element: React.ReactElement<IPnPControlsProps> = React.createElement(
@@ -42,7 +42,7 @@ export default class PnPControlsWebPart extends BaseClientSideWebPart<IPnPContro
       {
         context: this.context,
         sp: sp,
-        listId: this.properties.listId,
+        list: this.properties.list,
         term: this.properties.term
       }
     );
@@ -65,9 +65,9 @@ export default class PnPControlsWebPart extends BaseClientSideWebPart<IPnPContro
             {
               groupName: strings.BasicGroupName,
               groupFields: [
-                PropertyFieldListPicker('listId', {
+                PropertyFieldListPicker('list', {
                   label: 'Select a list',
-                  selectedList: this.properties.listId,
+                  selectedList: this.properties.list,
                   includeHidden: false,
                   orderBy: PropertyFieldListPickerOrderBy.Title,
                   disabled: false,

@@ -5,7 +5,7 @@ import { ICheckedTerms } from "@pnp/spfx-property-controls/lib/PropertyFieldTerm
 export interface IPnPControlsProps {
   context: WebPartContext;
   sp: SPRest;
-  listId: string;
+  list: string;
   term: ICheckedTerms;
 }
 

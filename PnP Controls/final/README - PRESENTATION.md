@@ -46,7 +46,7 @@ Update web part properties to include
 ```TypeScript
 export interface IPnPControlsWebPartProps {
   sp: SPRest;
-  listId: string;
+  list: string;
   term: ICheckedTerms;
 }
 ```
@@ -63,9 +63,9 @@ import { PropertyFieldListPicker, PropertyFieldListPickerOrderBy } from '@pnp/sp
 Update property pane fields to include a list and term picker
 
 ```TypeScript
-PropertyFieldListPicker('listId', {
+PropertyFieldListPicker('list', {
   label: 'Select a list',
-  selectedList: this.properties.listId,
+  selectedList: this.properties.list,
   includeHidden: false,
   orderBy: PropertyFieldListPickerOrderBy.Title,
   disabled: false,
@@ -95,7 +95,7 @@ PropertyFieldTermPicker('term', {
 Add logging to the render function and validate that the properties are being populated
 
 ```TypeScript
-console.info('List Id:', this.properties.listId);
+console.info('List Id:', this.properties.list);
 console.info('Term:', this.properties.term);
 ```
 
@@ -113,7 +113,7 @@ import { ICheckedTerms } from "@pnp/spfx-property-controls/lib/PropertyFieldTerm
 export interface IPnPControlsProps {
   context: WebPartContext;
   sp: SPRest;
-  listId: string;
+  list: string;
   term: ICheckedTerms;
 }
 ```
@@ -123,7 +123,7 @@ Update web part render function to pass the correct properties to the React comp
 ```TypeScript
 context: this.context,
 sp: sp,
-listId: this.properties.listId,
+list: this.properties.list,
 term: this.properties.term
 ```
 
@@ -137,7 +137,7 @@ Update render method to return the Placeholder if no list is selected
 (Add the code below as the first block of the render function and keep the existing code below)
 
 ```TypeScript
-if (this.props.listId === null || this.props.listId === "" || this.props.listId === undefined) {
+if (this.props.list === null || this.props.list === "" || this.props.list === undefined) {
   return (
     <Placeholder
       iconName="Edit"
@@ -186,10 +186,54 @@ constructor(props: IPnPControlsProps) {
 }
 ```
 
+Next, add a function to query list items using PnPJS
+The function should also filter items by the selected term
 
+```TypeScript
+private async _getItems() {
+  let select = '*';
+  let expand = 'File';
+  let filter = '';
 
+  // filter by selected term if required
+  if (this.props.term !== undefined && this.props.term !== null) {
+    const term = this.props.term[0];
 
+    select = `${select},TaxCatchAll/Term`;
+    expand = `${expand},TaxCatchAll`;
+    filter = `TaxCatchAll/Term eq '${term.name}'`;
+  }
 
+  const items = await this.props.sp.web.lists.getById(this.props.list).items
+    .select(select)
+    .expand(expand)
+    .filter(filter)
+    .get();
 
+  console.log('List Items:', items);
 
+  // update state
+  this.setState({
+    items: items ? items : []
+  });
+}
+```
+
+Call the _getItems function during the React component lifecycle
+
+```TypeScript
+public componentDidMount() {
+  if (this.props.list !== null && this.props.list !== "" && this.props.list === undefined) {
+    this._getItems();
+  }
+}
+
+public componentDidUpdate(prevProps: IPnPControlsProps, prevState: IPnPControlsState) {
+  if (this.props.list !== prevProps.list || this.props.term !== prevProps.term) {
+    if (this.props.list !== null && this.props.list !== "" && this.props.list === undefined) {
+      this._getItems();
+    }
+  }
+}
+```
 
