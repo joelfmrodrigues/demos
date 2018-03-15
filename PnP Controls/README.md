@@ -17,23 +17,35 @@ The start folder already contains a React web part with the required additional 
 
 1. Install PnPJS
 
+```TypeScript
 npm install @pnp/logging @pnp/common @pnp/odata @pnp/sp @pnp/graph --save
+```
 
 Import library and setup on web part init (as per PnPJS documentation)
 
 2. Install PnP reusable controls
 
+```TypeScript
 npm install @pnp/spfx-controls-react --save --save-exact
+```
 
 Configure resource file by adding the below to config/config.json
+
+```TypeScript
 "ControlStrings": "node_modules/@pnp/spfx-controls-react/lib/loc/{locale}.js"
+```
 
 3. Install PnP reusable property-pane controls
 
+```TypeScript
 npm install @pnp/spfx-property-controls --save --save-exact
+```
 
 Configure resource file by adding the below to config/config.json
+
+```TypeScript
 "PropertyControlStrings": "node_modules/@pnp/spfx-property-controls/lib/loc/{locale}.js"
+```
 
 ## Demo
 
