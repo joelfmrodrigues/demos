@@ -1,0 +1,13 @@
+{
+  "$schema": "https://dev.office.com/json-schemas/spfx-build/package-solution.schema.json",
+  "solution": {
+    "name": "pnp-controls-client-side-solution",
+    "id": "2c6b75e0-cecf-4b69-9cec-82987f897aee",
+    "version": "1.0.0.0",
+    "includeClientSideAssets": true,
+    "skipFeatureDeployment": true
+  },
+  "paths": {
+    "zippedPackage": "solution/pnp-controls.sppkg"
+  }
+}
