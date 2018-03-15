@@ -4,8 +4,27 @@ import { IPnPControlsProps, IPnPControlsState } from './IPnPControlsProps';
 import { escape } from '@microsoft/sp-lodash-subset';
 
 import { Placeholder } from '@pnp/spfx-controls-react/lib/Placeholder';
+import { WebPartTitle } from "@pnp/spfx-controls-react/lib/WebPartTitle";
+import { ListView, IViewField } from '@pnp/spfx-controls-react/lib/ListView';
 
 export default class PnPControls extends React.Component<IPnPControlsProps, IPnPControlsState> {
+
+  // Specify the fields that need to be viewed in the list
+  private _viewFields: IViewField[] = [
+    {
+      name: "Id",
+      displayName: "ID",
+      maxWidth: 25,
+      minWidth: 25,
+      sorting: true
+    },
+    {
+      name: "File.Name",
+      linkPropertyName: "File.ServerRelativeUrl",
+      displayName: "Name",
+      sorting: true
+    }
+  ];
 
   constructor(props: IPnPControlsProps) {
     super(props);
@@ -16,14 +35,14 @@ export default class PnPControls extends React.Component<IPnPControlsProps, IPnP
   }
 
   public componentDidMount() {
-    if (this.props.list !== null && this.props.list !== "" && this.props.list === undefined) {
+    if (this.props.list !== null && this.props.list !== "" && this.props.list !== undefined) {
       this._getItems();
     }
   }
 
   public componentDidUpdate(prevProps: IPnPControlsProps, prevState: IPnPControlsState) {
     if (this.props.list !== prevProps.list || this.props.term !== prevProps.term) {
-      if (this.props.list !== null && this.props.list !== "" && this.props.list === undefined) {
+      if (this.props.list !== null && this.props.list !== "" && this.props.list !== undefined) {
         this._getItems();
       }
     }
@@ -41,19 +60,22 @@ export default class PnPControls extends React.Component<IPnPControlsProps, IPnP
       );
     }
     return (
-      <div className={styles.pnPControls}>
-        <div className={styles.container}>
-          <div className={styles.row}>
-            <div className={styles.column}>
-              <span className={styles.title}>Welcome to SharePoint!</span>
-              <p className={styles.subTitle}>Customize SharePoint experiences using Web Parts.</p>
-              <a href="https://aka.ms/spfx" className={styles.button}>
-                <span className={styles.label}>Learn more</span>
-              </a>
-            </div>
+      this.state.items.length === 0 ?
+        (
+          <Placeholder
+            iconName="InfoSolid"
+            iconText="No items found"
+            description="No items to display" />
+        ) : (
+          <div>
+            <WebPartTitle displayMode={this.props.displayMode}
+              title={this.props.title}
+              updateProperty={this.props.updateTitle} />
+            <ListView items={this.state.items}
+              viewFields={this._viewFields}
+              iconFieldName="File.ServerRelativeUrl" />
           </div>
-        </div>
-      </div>
+        )
     );
   }
 

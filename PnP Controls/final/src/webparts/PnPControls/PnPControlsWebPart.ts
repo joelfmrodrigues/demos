@@ -17,6 +17,7 @@ import { IPnPControlsProps } from './components/IPnPControlsProps';
 
 export interface IPnPControlsWebPartProps {
   sp: SPRest;
+  title: string;
   list: string;
   term: ICheckedTerms;
 }
@@ -41,7 +42,12 @@ export default class PnPControlsWebPart extends BaseClientSideWebPart<IPnPContro
       PnPControls,
       {
         context: this.context,
+        displayMode: this.displayMode,
         sp: sp,
+        title: this.properties.title,
+        updateTitle: (value: string) => {
+          this.properties.title = value;
+        },
         list: this.properties.list,
         term: this.properties.term
       }
