@@ -6,14 +6,19 @@ import {
   IPropertyPaneConfiguration,
   PropertyPaneTextField
 } from '@microsoft/sp-webpart-base';
-import { sp } from "@pnp/sp";
+
+import { sp, SPRest } from "@pnp/sp";
+import { PropertyFieldTermPicker, ICheckedTerms } from '@pnp/spfx-property-controls/lib/PropertyFieldTermPicker';
+import { PropertyFieldListPicker, PropertyFieldListPickerOrderBy } from '@pnp/spfx-property-controls/lib/PropertyFieldListPicker';
 
 import * as strings from 'PnPControlsWebPartStrings';
 import PnPControls from './components/PnPControls';
 import { IPnPControlsProps } from './components/IPnPControlsProps';
 
 export interface IPnPControlsWebPartProps {
-  description: string;
+  sp: SPRest;
+  listId: string;
+  term: ICheckedTerms;
 }
 
 export default class PnPControlsWebPart extends BaseClientSideWebPart<IPnPControlsWebPartProps> {
@@ -28,10 +33,16 @@ export default class PnPControlsWebPart extends BaseClientSideWebPart<IPnPContro
   }
 
   public render(): void {
+
+    console.info('List Id:', this.properties.listId);
+    console.info('Term:', this.properties.term);
+
     const element: React.ReactElement<IPnPControlsProps> = React.createElement(
       PnPControls,
       {
-        description: this.properties.description
+        sp: sp,
+        listId: this.properties.listId,
+        term: this.properties.term
       }
     );
 
@@ -53,8 +64,32 @@ export default class PnPControlsWebPart extends BaseClientSideWebPart<IPnPContro
             {
               groupName: strings.BasicGroupName,
               groupFields: [
-                PropertyPaneTextField('description', {
-                  label: strings.DescriptionFieldLabel
+                PropertyFieldListPicker('listId', {
+                  label: 'Select a list',
+                  selectedList: this.properties.listId,
+                  includeHidden: false,
+                  orderBy: PropertyFieldListPickerOrderBy.Title,
+                  disabled: false,
+                  baseTemplate: 101, // filtering for document libraries
+                  onPropertyChange: this.onPropertyPaneFieldChanged.bind(this),
+                  properties: this.properties,
+                  context: this.context,
+                  onGetErrorMessage: null,
+                  deferredValidationTime: 0,
+                  key: 'listPickerFieldId'
+                }),
+                PropertyFieldTermPicker('term', {
+                  label: 'Select a term',
+                  panelTitle: 'Select a term',
+                  initialValues: this.properties.term,
+                  allowMultipleSelections: false,
+                  excludeSystemGroup: false,
+                  onPropertyChange: this.onPropertyPaneFieldChanged,
+                  properties: this.properties,
+                  context: this.context,
+                  onGetErrorMessage: null,
+                  deferredValidationTime: 0,
+                  key: 'termSetsPickerFieldId'
                 })
               ]
             }
