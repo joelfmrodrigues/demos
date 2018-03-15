@@ -11,15 +11,22 @@
     "test": "gulp test"
   },
   "dependencies": {
-    "react": "15.6.2",
-    "react-dom": "15.6.2",
-    "@types/react": "15.6.6",
-    "@types/react-dom": "15.5.6",
     "@microsoft/sp-core-library": "~1.4.1",
-    "@microsoft/sp-webpart-base": "~1.4.1",
     "@microsoft/sp-lodash-subset": "~1.4.1",
     "@microsoft/sp-office-ui-fabric-core": "~1.4.1",
-    "@types/webpack-env": ">=1.12.1 <1.14.0"
+    "@microsoft/sp-webpart-base": "~1.4.1",
+    "@pnp/common": "^1.0.3",
+    "@pnp/graph": "^1.0.3",
+    "@pnp/logging": "^1.0.3",
+    "@pnp/odata": "^1.0.3",
+    "@pnp/sp": "^1.0.3",
+    "@pnp/spfx-controls-react": "1.2.3",
+    "@pnp/spfx-property-controls": "1.4.2",
+    "@types/react": "15.6.6",
+    "@types/react-dom": "15.5.6",
+    "@types/webpack-env": ">=1.12.1 <1.14.0",
+    "react": "15.6.2",
+    "react-dom": "15.6.2"
   },
   "devDependencies": {
     "@microsoft/sp-build-web": "~1.4.1",
