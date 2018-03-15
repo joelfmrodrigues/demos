@@ -6,6 +6,7 @@ import {
   IPropertyPaneConfiguration,
   PropertyPaneTextField
 } from '@microsoft/sp-webpart-base';
+import { sp } from "@pnp/sp";
 
 import * as strings from 'PnPControlsWebPartStrings';
 import PnPControls from './components/PnPControls';
@@ -17,8 +18,17 @@ export interface IPnPControlsWebPartProps {
 
 export default class PnPControlsWebPart extends BaseClientSideWebPart<IPnPControlsWebPartProps> {
 
+  public onInit(): Promise<void> {
+
+    return super.onInit().then(_ => {
+      sp.setup({
+        spfxContext: this.context
+      });
+    });
+  }
+
   public render(): void {
-    const element: React.ReactElement<IPnPControlsProps > = React.createElement(
+    const element: React.ReactElement<IPnPControlsProps> = React.createElement(
       PnPControls,
       {
         description: this.properties.description

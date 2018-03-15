@@ -13,6 +13,8 @@ The start folder already contains a React web part with the required additional 
 1) Install PnPJS
 npm install @pnp/logging @pnp/common @pnp/odata @pnp/sp @pnp/graph --save
 
+Import library and setup on web part init (as per PnPJS documentation)
+
 2) Install PnP reusable controls
 npm install @pnp/spfx-controls-react --save --save-exact
 
