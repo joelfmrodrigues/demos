@@ -1,7 +1,7 @@
 # PnP Controls
 
 This guide demonstrates how to use PnP reusable controls, property pane controls and PnPJS library on SPFx solutions.
-It was created for demonstration purposes only. If creating a solution to be used on production, you need to also account for other scenarios (like using data and mock services, tests, error handling, etc).
+It was created for demonstration purposes only. If creating a solution to be used on production, you need to also account for other scenarios (like using data services and mock data, tests, error handling, etc) 
 
 ## Before the demo
 
@@ -12,6 +12,8 @@ The start folder already contains a React web part with the required additional 
 * PnPJS
 * PnP reusable controls
 * PnP reusable property-pane controls
+
+All you have to do is run "npm install" to install the required node modules.
 
 ### Steps if starting from an empty project
 
