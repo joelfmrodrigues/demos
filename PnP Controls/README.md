@@ -1,7 +1,7 @@
 # PnP Controls
 
 This guide demonstrates how to use PnP reusable controls, property pane controls and PnPJS library on SPFx solutions.
-It was created for demonstration purposes only. If creating a solution to be used on production, you need to also account for other scenarios (like using data services and mock data, tests, error handling, etc) 
+It was created for demonstration purposes only. If creating a solution to be used on production, you need to also account for other scenarios (like using data services and mock data, tests, error handling, etc)
 
 ## Before the demo
 
@@ -51,9 +51,19 @@ Configure resource file by adding the below to config/config.json
 
 ## Demo
 
-Update web part properties to include
+Start by importing references to property pane controls and PnPJS into your web part
+
+```TypeScript
+import { sp, SPRest } from "@pnp/sp";
+import { ICheckedTerms } from "@pnp/spfx-property-controls/lib/PropertyFieldTermPicker";
+import { PropertyFieldTermPicker, ICheckedTerms } from '@pnp/spfx-property-controls/lib/PropertyFieldTermPicker';
+import { PropertyFieldListPicker, PropertyFieldListPickerOrderBy } from '@pnp/spfx-property-controls/lib/PropertyFieldListPicker';
+```
+
+Next, update web part properties to include the options we need
 
 * a configured reference to PnPJS,
+* the web part title
 * a reference to the source list
 * a reference to the selected term
 
@@ -64,15 +74,6 @@ export interface IPnPControlsWebPartProps {
   list: string;
   term: ICheckedTerms;
 }
-```
-
-Update web part imports to resolve missing references and include property pane controls
-
-```TypeScript
-import { sp, SPRest } from "@pnp/sp";
-import { ICheckedTerms } from "@pnp/spfx-property-controls/lib/PropertyFieldTermPicker";
-import { PropertyFieldTermPicker, ICheckedTerms } from '@pnp/spfx-property-controls/lib/PropertyFieldTermPicker';
-import { PropertyFieldListPicker, PropertyFieldListPickerOrderBy } from '@pnp/spfx-property-controls/lib/PropertyFieldListPicker';
 ```
 
 Update property pane fields to include a list and term picker
