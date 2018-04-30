@@ -1,7 +1,7 @@
 import { WebPartContext } from "@microsoft/sp-webpart-base";
 import { DisplayMode } from '@microsoft/sp-core-library';
 import { SPRest } from "@pnp/sp";
-import { ICheckedTerms } from "@pnp/spfx-property-controls/lib/PropertyFieldTermPicker";
+import { IPickerTerms } from "@pnp/spfx-property-controls/lib/PropertyFieldTermPicker";
 
 export interface IPnPControlsProps {
   context: WebPartContext;
@@ -10,7 +10,7 @@ export interface IPnPControlsProps {
   title: string;
   updateTitle: (value: string) => void;
   list: string;
-  term: ICheckedTerms;
+  term: IPickerTerms;
 }
 
 export interface IPnPControlsState {

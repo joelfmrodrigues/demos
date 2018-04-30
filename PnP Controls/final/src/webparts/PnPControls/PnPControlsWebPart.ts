@@ -8,7 +8,7 @@ import {
 } from '@microsoft/sp-webpart-base';
 
 import { sp, SPRest } from "@pnp/sp";
-import { PropertyFieldTermPicker, ICheckedTerms } from '@pnp/spfx-property-controls/lib/PropertyFieldTermPicker';
+import { PropertyFieldTermPicker, IPickerTerms } from '@pnp/spfx-property-controls/lib/PropertyFieldTermPicker';
 import { PropertyFieldListPicker, PropertyFieldListPickerOrderBy } from '@pnp/spfx-property-controls/lib/PropertyFieldListPicker';
 
 import * as strings from 'PnPControlsWebPartStrings';
@@ -19,7 +19,7 @@ export interface IPnPControlsWebPartProps {
   sp: SPRest;
   title: string;
   list: string;
-  term: ICheckedTerms;
+  term: IPickerTerms;
 }
 
 export default class PnPControlsWebPart extends BaseClientSideWebPart<IPnPControlsWebPartProps> {
@@ -91,7 +91,7 @@ export default class PnPControlsWebPart extends BaseClientSideWebPart<IPnPContro
                   initialValues: this.properties.term,
                   allowMultipleSelections: false,
                   excludeSystemGroup: false,
-                  onPropertyChange: this.onPropertyPaneFieldChanged,
+                  onPropertyChange: this.onPropertyPaneFieldChanged.bind(this),
                   properties: this.properties,
                   context: this.context,
                   onGetErrorMessage: null,
