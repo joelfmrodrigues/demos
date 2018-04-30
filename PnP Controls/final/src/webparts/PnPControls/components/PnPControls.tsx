@@ -73,6 +73,7 @@ export default class PnPControls extends React.Component<IPnPControlsProps, IPnP
               updateProperty={this.props.updateTitle} />
             <ListView items={this.state.items}
               viewFields={this._viewFields}
+              selection={this._getSelection}
               iconFieldName="File.ServerRelativeUrl" />
           </div>
         )
@@ -83,11 +84,16 @@ export default class PnPControls extends React.Component<IPnPControlsProps, IPnP
     this.props.context.propertyPane.open();
   }
 
+  private _getSelection(items: any[]) {
+    console.log('Selected List items:', items);
+  }
+
   private async _getItems() {
     let select = '*';
     let expand = 'File';
     let filter = '';
 
+    console.log('Selected Term: ', this.props.term);
     // filter by selected term if required
     if (this.props.term !== undefined && this.props.term !== null) {
       const term = this.props.term[0];

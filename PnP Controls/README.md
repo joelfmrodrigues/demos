@@ -56,7 +56,7 @@ Start by importing references to property pane controls and PnPJS into your web 
 ```TypeScript
 import { sp, SPRest } from "@pnp/sp";
 import { ICheckedTerms } from "@pnp/spfx-property-controls/lib/PropertyFieldTermPicker";
-import { PropertyFieldTermPicker, ICheckedTerms } from '@pnp/spfx-property-controls/lib/PropertyFieldTermPicker';
+import { PropertyFieldTermPicker, IPickerTerms } from '@pnp/spfx-property-controls/lib/PropertyFieldTermPicker';
 import { PropertyFieldListPicker, PropertyFieldListPickerOrderBy } from '@pnp/spfx-property-controls/lib/PropertyFieldListPicker';
 ```
 
@@ -72,7 +72,7 @@ export interface IPnPControlsWebPartProps {
   sp: SPRest;
   title: string;
   list: string;
-  term: ICheckedTerms;
+  term: IPickerTerms;
 }
 ```
 
@@ -99,7 +99,7 @@ PropertyFieldTermPicker('term', {
   initialValues: this.properties.term,
   allowMultipleSelections: false,
   excludeSystemGroup: false,
-  onPropertyChange: this.onPropertyPaneFieldChanged,
+  onPropertyChange: this.onPropertyPaneFieldChanged.bind(this),
   properties: this.properties,
   context: this.context,
   onGetErrorMessage: null,
@@ -128,7 +128,7 @@ Update React component properties to include
 import { WebPartContext } from "@microsoft/sp-webpart-base";
 import { DisplayMode } from '@microsoft/sp-core-library';
 import { SPRest } from "@pnp/sp";
-import { ICheckedTerms } from "@pnp/spfx-property-controls/lib/PropertyFieldTermPicker";
+import { IPickerTerms } from "@pnp/spfx-property-controls/lib/PropertyFieldTermPicker";
 
 export interface IPnPControlsProps {
   context: WebPartContext;
@@ -137,7 +137,7 @@ export interface IPnPControlsProps {
   title: string;
   updateTitle: (value: string) => void;
   list: string;
-  term: ICheckedTerms;
+  term: IPickerTerms;
 }
 ```
 
@@ -223,6 +223,8 @@ private async _getItems() {
   let expand = 'File';
   let filter = '';
 
+  console.log('Selected Term: ', this.props.term);
+
   // filter by selected term if required
   if (this.props.term !== undefined && this.props.term !== null) {
     const term = this.props.term[0];
@@ -307,6 +309,14 @@ private _viewFields: IViewField[] = [
 ];
 ```
 
+Add a new function to log the List items selected by the user
+
+```TypeScript
+private _getSelection(items: any[]) {
+  console.log('Selected List items:', items);
+}
+```
+
 Finally, add the ListView to the render method. We are also dynamically displaying a different Placeholder for when no items are available.
 
 Replace the render function as below
@@ -337,6 +347,7 @@ public render(): React.ReactElement<IPnPControlsProps> {
             updateProperty={this.props.updateTitle} />
           <ListView items={this.state.items}
             viewFields={this._viewFields}
+            selection={this._getSelection}
             iconFieldName="File.ServerRelativeUrl" />
         </div>
       )
