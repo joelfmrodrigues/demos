@@ -55,7 +55,7 @@ Start by importing references to property pane controls and PnPJS into your web 
 
 ```TypeScript
 import { sp, SPRest } from "@pnp/sp";
-import { ICheckedTerms } from "@pnp/spfx-property-controls/lib/PropertyFieldTermPicker";
+import { IPickerTerms } from "@pnp/spfx-property-controls/lib/PropertyFieldTermPicker";
 import { PropertyFieldTermPicker, IPickerTerms } from '@pnp/spfx-property-controls/lib/PropertyFieldTermPicker';
 import { PropertyFieldListPicker, PropertyFieldListPickerOrderBy } from '@pnp/spfx-property-controls/lib/PropertyFieldListPicker';
 ```
