@@ -7,16 +7,16 @@ import {
   PropertyPaneTextField
 } from '@microsoft/sp-webpart-base';
 
-import { sp, SPRest } from "@pnp/sp";
-import { PropertyFieldTermPicker, IPickerTerms } from '@pnp/spfx-property-controls/lib/PropertyFieldTermPicker';
-import { PropertyFieldListPicker, PropertyFieldListPickerOrderBy } from '@pnp/spfx-property-controls/lib/PropertyFieldListPicker';
-
 import * as strings from 'PnPControlsWebPartStrings';
 import PnPControls from './components/PnPControls';
 import { IPnPControlsProps } from './components/IPnPControlsProps';
 
+// PnP imports
+import { sp } from "@pnp/sp";
+import { PropertyFieldListPicker, PropertyFieldListPickerOrderBy } from '@pnp/spfx-property-controls/lib/PropertyFieldListPicker';
+import { PropertyFieldTermPicker, IPickerTerms } from '@pnp/spfx-property-controls/lib/PropertyFieldTermPicker';
+
 export interface IPnPControlsWebPartProps {
-  sp: SPRest;
   title: string;
   list: string;
   term: IPickerTerms;
@@ -43,7 +43,6 @@ export default class PnPControlsWebPart extends BaseClientSideWebPart<IPnPContro
       {
         context: this.context,
         displayMode: this.displayMode,
-        sp: sp,
         title: this.properties.title,
         updateTitle: (value: string) => {
           this.properties.title = value;
@@ -71,6 +70,7 @@ export default class PnPControlsWebPart extends BaseClientSideWebPart<IPnPContro
             {
               groupName: strings.BasicGroupName,
               groupFields: [
+                // change 1
                 PropertyFieldListPicker('list', {
                   label: 'Select a list',
                   selectedList: this.properties.list,

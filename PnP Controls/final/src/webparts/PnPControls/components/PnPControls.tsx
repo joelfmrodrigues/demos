@@ -3,13 +3,14 @@ import styles from './PnPControls.module.scss';
 import { IPnPControlsProps, IPnPControlsState } from './IPnPControlsProps';
 import { escape } from '@microsoft/sp-lodash-subset';
 
+// PnP imports
+import { sp } from "@pnp/sp";
 import { Placeholder } from '@pnp/spfx-controls-react/lib/Placeholder';
 import { WebPartTitle } from "@pnp/spfx-controls-react/lib/WebPartTitle";
 import { ListView, IViewField } from '@pnp/spfx-controls-react/lib/ListView';
 
 export default class PnPControls extends React.Component<IPnPControlsProps, IPnPControlsState> {
 
-  // Specify the fields that need to be viewed in the list
   private _viewFields: IViewField[] = [
     {
       name: "Id",
@@ -32,20 +33,6 @@ export default class PnPControls extends React.Component<IPnPControlsProps, IPnP
     this.state = {
       items: [],
     };
-  }
-
-  public componentDidMount() {
-    if (this.props.list !== null && this.props.list !== "" && this.props.list !== undefined) {
-      this._getItems();
-    }
-  }
-
-  public componentDidUpdate(prevProps: IPnPControlsProps, prevState: IPnPControlsState) {
-    if (this.props.list !== prevProps.list || this.props.term !== prevProps.term) {
-      if (this.props.list !== null && this.props.list !== "" && this.props.list !== undefined) {
-        this._getItems();
-      }
-    }
   }
 
   public render(): React.ReactElement<IPnPControlsProps> {
@@ -84,18 +71,13 @@ export default class PnPControls extends React.Component<IPnPControlsProps, IPnP
     this.props.context.propertyPane.open();
   }
 
-  private _getSelection(items: any[]) {
-    console.log('Selected List items:', items);
-  }
-
   private async _getItems() {
     let select = '*';
     let expand = 'File';
     let filter = '';
 
-    console.log('Selected Term: ', this.props.term);
     // filter by selected term if required
-    if (this.props.term !== undefined && this.props.term !== null) {
+    if (this.props.term !== undefined && this.props.term !== null && this.props.term.length > 0) {
       const term = this.props.term[0];
 
       select = `${select},TaxCatchAll/Term`;
@@ -103,17 +85,34 @@ export default class PnPControls extends React.Component<IPnPControlsProps, IPnP
       filter = `TaxCatchAll/Term eq '${term.name}'`;
     }
 
-    const items = await this.props.sp.web.lists.getById(this.props.list).items
+    const items = await sp.web.lists.getById(this.props.list).items
       .select(select)
       .expand(expand)
       .filter(filter)
       .get();
 
-    console.log('List Items:', items);
-
     // update state
     this.setState({
       items: items ? items : []
     });
+    console.log('List Items:', this.state.items);
+  }
+
+  public componentDidMount() {
+    if (this.props.list !== null && this.props.list !== "" && this.props.list !== undefined) {
+      this._getItems();
+    }
+  }
+
+  public componentDidUpdate(prevProps: IPnPControlsProps, prevState: IPnPControlsState) {
+    if (this.props.list !== prevProps.list || this.props.term !== prevProps.term) {
+      if (this.props.list !== null && this.props.list !== "" && this.props.list !== undefined) {
+        this._getItems();
+      }
+    }
+  }
+
+  private _getSelection(items: any[]) {
+    console.log('Selected List items:', items);
   }
 }
