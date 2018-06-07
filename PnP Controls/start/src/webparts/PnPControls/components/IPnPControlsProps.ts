@@ -6,7 +6,7 @@ export interface IPnPControlsProps {
   context: WebPartContext;
   displayMode: DisplayMode;
   title: string;
-  updateTitle: (value: string) => void;
+  updateTitle: (value: string) => void; // to pass the title from the component to the web part
   list: string;
   term: IPickerTerms;
 }
