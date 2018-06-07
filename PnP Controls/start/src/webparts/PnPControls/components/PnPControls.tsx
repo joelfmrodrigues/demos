@@ -1,10 +1,28 @@
 import * as React from 'react';
 import styles from './PnPControls.module.scss';
-import { IPnPControlsProps } from './IPnPControlsProps';
+import { IPnPControlsProps, IPnPControlsState } from './IPnPControlsProps';
 import { escape } from '@microsoft/sp-lodash-subset';
 
-export default class PnPControls extends React.Component<IPnPControlsProps, {}> {
+// PnP imports
+import { sp } from "@pnp/sp";
+import { Placeholder } from '@pnp/spfx-controls-react/lib/Placeholder';
+import { WebPartTitle } from "@pnp/spfx-controls-react/lib/WebPartTitle";
+import { ListView, IViewField } from '@pnp/spfx-controls-react/lib/ListView';
+
+export default class PnPControls extends React.Component<IPnPControlsProps, IPnPControlsState> {
+
+  constructor(props: IPnPControlsProps) {
+    super(props);
+
+    this.state = {
+      items: [],
+    };
+  }
+
   public render(): React.ReactElement<IPnPControlsProps> {
+
+    console.log('List Items:', this.state.items);
+
     return (
       <div className={ styles.pnPControls }>
         <div className={ styles.container }>
