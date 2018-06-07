@@ -70,6 +70,7 @@ export default class PnPControlsWebPart extends BaseClientSideWebPart<IPnPContro
             {
               groupName: strings.BasicGroupName,
               groupFields: [
+                // change 1
                 PropertyPaneTextField('description', {
                   label: strings.DescriptionFieldLabel
                 })

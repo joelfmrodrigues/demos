@@ -11,6 +11,9 @@ import { ListView, IViewField } from '@pnp/spfx-controls-react/lib/ListView';
 
 export default class PnPControls extends React.Component<IPnPControlsProps, IPnPControlsState> {
 
+  // change 6
+
+
   constructor(props: IPnPControlsProps) {
     super(props);
 
@@ -19,20 +22,25 @@ export default class PnPControls extends React.Component<IPnPControlsProps, IPnP
     };
   }
 
+  // change 7
   public render(): React.ReactElement<IPnPControlsProps> {
 
     console.log('List Items:', this.state.items);
 
+    // change 2
+
+
     return (
-      <div className={ styles.pnPControls }>
-        <div className={ styles.container }>
-          <div className={ styles.row }>
-            <div className={ styles.column }>
-              <span className={ styles.title }>Welcome to SharePoint!</span>
-              <p className={ styles.subTitle }>Customize SharePoint experiences using Web Parts.</p>
-              <p className={ styles.description }>{escape(this.props.title)}</p>
-              <a href="https://aka.ms/spfx" className={ styles.button }>
-                <span className={ styles.label }>Learn more</span>
+      // change 5
+      <div className={styles.pnPControls}>
+        <div className={styles.container}>
+          <div className={styles.row}>
+            <div className={styles.column}>
+              <span className={styles.title}>Welcome to SharePoint!</span>
+              <p className={styles.subTitle}>Customize SharePoint experiences using Web Parts.</p>
+              <p className={styles.description}>{escape(this.props.title)}</p>
+              <a href="https://aka.ms/spfx" className={styles.button}>
+                <span className={styles.label}>Learn more</span>
               </a>
             </div>
           </div>
@@ -40,4 +48,13 @@ export default class PnPControls extends React.Component<IPnPControlsProps, IPnP
       </div>
     );
   }
+
+  // change 3
+
+
+  // change 4
+
+
+  // change 8
+
 }
