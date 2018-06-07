@@ -10,3 +10,7 @@ export interface IPnPControlsProps {
   list: string;
   term: IPickerTerms;
 }
+
+export interface IPnPControlsState {
+  items?: any[];
+}
