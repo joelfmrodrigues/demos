@@ -70,32 +70,8 @@ export default class PnPControlsWebPart extends BaseClientSideWebPart<IPnPContro
             {
               groupName: strings.BasicGroupName,
               groupFields: [
-                PropertyFieldListPicker('list', {
-                  label: 'Select a list',
-                  selectedList: this.properties.list,
-                  includeHidden: false,
-                  orderBy: PropertyFieldListPickerOrderBy.Title,
-                  disabled: false,
-                  baseTemplate: 101, // filtering for document libraries
-                  onPropertyChange: this.onPropertyPaneFieldChanged.bind(this),
-                  properties: this.properties,
-                  context: this.context,
-                  onGetErrorMessage: null,
-                  deferredValidationTime: 0,
-                  key: 'listPickerFieldId'
-                }),
-                PropertyFieldTermPicker('term', {
-                  label: 'Select a term',
-                  panelTitle: 'Select a term',
-                  initialValues: this.properties.term,
-                  allowMultipleSelections: false,
-                  excludeSystemGroup: false,
-                  onPropertyChange: this.onPropertyPaneFieldChanged.bind(this),
-                  properties: this.properties,
-                  context: this.context,
-                  onGetErrorMessage: null,
-                  deferredValidationTime: 0,
-                  key: 'termSetsPickerFieldId'
+                PropertyPaneTextField('description', {
+                  label: strings.DescriptionFieldLabel
                 })
               ]
             }
