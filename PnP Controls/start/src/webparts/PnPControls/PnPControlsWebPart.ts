@@ -17,7 +17,9 @@ import { PropertyFieldListPicker, PropertyFieldListPickerOrderBy } from '@pnp/sp
 import { PropertyFieldTermPicker, IPickerTerms } from '@pnp/spfx-property-controls/lib/PropertyFieldTermPicker';
 
 export interface IPnPControlsWebPartProps {
-  description: string;
+  title: string;
+  list: string;
+  term: IPickerTerms;
 }
 
 export default class PnPControlsWebPart extends BaseClientSideWebPart<IPnPControlsWebPartProps> {
@@ -35,7 +37,7 @@ export default class PnPControlsWebPart extends BaseClientSideWebPart<IPnPContro
     const element: React.ReactElement<IPnPControlsProps> = React.createElement(
       PnPControls,
       {
-        description: this.properties.description
+        description: this.properties.title
       }
     );
 
