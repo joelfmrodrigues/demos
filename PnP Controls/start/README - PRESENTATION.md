@@ -145,30 +145,6 @@ import { WebPartTitle } from "@pnp/spfx-controls-react/lib/WebPartTitle";
 import { ListView, IViewField } from '@pnp/spfx-controls-react/lib/ListView';
 ```
 
-Update render method to return the Placeholder if no list is selected
-(Add the code below as the first block of the render function and keep the existing code below)
-
-```TypeScript
-if (this.props.list === null || this.props.list === "" || this.props.list === undefined) {
-  return (
-    <Placeholder
-      iconName="Edit"
-      iconText="Configure your web part"
-      description="Please configure the web part."
-      buttonLabel="Configure"
-      onConfigure={this._onConfigure.bind(this)} />
-  );
-}
-```
-
-Implement _configureWebPart function to open the web part property pane and test the changes
-
-```TypeScript
-private _onConfigure() {
-  this.props.context.propertyPane.open();
-}
-```
-
 Check the interface with an items property to be used as the state interface
 For simplicity, it can be created next to the properties interface
 
@@ -195,6 +171,30 @@ constructor(props: IPnPControlsProps) {
   this.state = {
     items: [],
   };
+}
+```
+
+Update render method to return the Placeholder if no list is selected
+(Add the code below as the first block of the render function and keep the existing code below)
+
+```TypeScript
+if (this.props.list === null || this.props.list === "" || this.props.list === undefined) {
+  return (
+    <Placeholder
+      iconName="Edit"
+      iconText="Configure your web part"
+      description="Please configure the web part."
+      buttonLabel="Configure"
+      onConfigure={this._onConfigure.bind(this)} />
+  );
+}
+```
+
+Implement _configureWebPart function to open the web part property pane and test the changes
+
+```TypeScript
+private _onConfigure() {
+  this.props.context.propertyPane.open();
 }
 ```
 

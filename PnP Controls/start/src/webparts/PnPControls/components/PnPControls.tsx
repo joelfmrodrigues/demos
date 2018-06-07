@@ -11,7 +11,7 @@ import { ListView, IViewField } from '@pnp/spfx-controls-react/lib/ListView';
 
 export default class PnPControls extends React.Component<IPnPControlsProps, IPnPControlsState> {
 
-  // change 6
+  // change 7
 
 
   constructor(props: IPnPControlsProps) {
@@ -22,16 +22,25 @@ export default class PnPControls extends React.Component<IPnPControlsProps, IPnP
     };
   }
 
-  // change 7
+  // change 8
   public render(): React.ReactElement<IPnPControlsProps> {
 
     console.log('List Items:', this.state.items);
 
     // change 2
-
+    if (this.props.list === null || this.props.list === "" || this.props.list === undefined) {
+      return (
+        <Placeholder
+          iconName="Edit"
+          iconText="Configure your web part"
+          description="Please configure the web part."
+          buttonLabel="Configure"
+          onConfigure={this._onConfigure.bind(this)} />
+      );
+    }
 
     return (
-      // change 5
+      // change 6
       <div className={styles.pnPControls}>
         <div className={styles.container}>
           <div className={styles.row}>
@@ -55,6 +64,9 @@ export default class PnPControls extends React.Component<IPnPControlsProps, IPnP
   // change 4
 
 
-  // change 8
+  // change 5
+
+
+  // change 9
 
 }
