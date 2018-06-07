@@ -54,9 +54,8 @@ import { PropertyFieldListPicker, PropertyFieldListPickerOrderBy } from '@pnp/sp
 import { PropertyFieldTermPicker, IPickerTerms } from '@pnp/spfx-property-controls/lib/PropertyFieldTermPicker';
 ```
 
-Next, check the web part properties to include the options we need
+Next, check that the web part properties include the options we need
 
-* a configured reference to PnPJS,
 * the web part title
 * a reference to the source list
 * a reference to the selected term
@@ -67,6 +66,42 @@ export interface IPnPControlsWebPartProps {
   list: string;
   term: IPickerTerms;
 }
+```
+
+Check that the React component properties include
+
+* a reference to the web part context
+* a reference to the web part display mode
+* properties to handle the title update
+* a reference to the source list
+* a reference to the selected term
+
+```TypeScript
+import { WebPartContext } from "@microsoft/sp-webpart-base";
+import { DisplayMode } from '@microsoft/sp-core-library';
+import { IPickerTerms } from "@pnp/spfx-property-controls/lib/PropertyFieldTermPicker";
+
+export interface IPnPControlsProps {
+  context: WebPartContext;
+  displayMode: DisplayMode;
+  title: string;
+  updateTitle: (value: string) => void;
+  list: string;
+  term: IPickerTerms;
+}
+```
+
+And finally, check that web part render function passes the correct properties to the React component
+
+```TypeScript
+context: this.context,
+displayMode: this.displayMode,
+title: this.properties.title,
+updateTitle: (value: string) => {
+  this.properties.title = value;
+},
+list: this.properties.list,
+term: this.properties.term
 ```
 
 Update property pane fields to include a list and term picker
@@ -99,53 +134,6 @@ PropertyFieldTermPicker('term', {
   deferredValidationTime: 0,
   key: 'termSetsPickerFieldId'
 })
-```
-
-Add logging to the render function and validate that the properties are being populated
-
-```TypeScript
-console.info('List Id:', this.properties.list);
-console.info('Term:', this.properties.term);
-```
-
-Update React component properties to include
-
-* a reference to the web part context
-* a reference to the web part display mode
-* a configured reference to PnPJS,
-* properties to handle the title update
-* a reference to the source list
-* a reference to the selected term
-
-```TypeScript
-import { WebPartContext } from "@microsoft/sp-webpart-base";
-import { DisplayMode } from '@microsoft/sp-core-library';
-import { SPRest } from "@pnp/sp";
-import { IPickerTerms } from "@pnp/spfx-property-controls/lib/PropertyFieldTermPicker";
-
-export interface IPnPControlsProps {
-  context: WebPartContext;
-  displayMode: DisplayMode;
-  sp: SPRest;
-  title: string;
-  updateTitle: (value: string) => void;
-  list: string;
-  term: IPickerTerms;
-}
-```
-
-Update web part render function to pass the correct properties to the React component
-
-```TypeScript
-context: this.context,
-displayMode: this.displayMode,
-sp: sp,
-title: this.properties.title,
-updateTitle: (value: string) => {
-  this.properties.title = value;
-},
-list: this.properties.list,
-term: this.properties.term
 ```
 
 Import Placeholder control into the React component

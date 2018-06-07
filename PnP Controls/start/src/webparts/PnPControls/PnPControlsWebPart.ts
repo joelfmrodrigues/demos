@@ -41,7 +41,14 @@ export default class PnPControlsWebPart extends BaseClientSideWebPart<IPnPContro
     const element: React.ReactElement<IPnPControlsProps> = React.createElement(
       PnPControls,
       {
-        description: this.properties.title
+        context: this.context,
+        displayMode: this.displayMode,
+        title: this.properties.title,
+        updateTitle: (value: string) => {
+          this.properties.title = value;
+        },
+        list: this.properties.list,
+        term: this.properties.term
       }
     );
 
