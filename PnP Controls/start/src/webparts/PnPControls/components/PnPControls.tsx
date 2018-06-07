@@ -28,16 +28,7 @@ export default class PnPControls extends React.Component<IPnPControlsProps, IPnP
     console.log('List Items:', this.state.items);
 
     // change 2
-    if (this.props.list === null || this.props.list === "" || this.props.list === undefined) {
-      return (
-        <Placeholder
-          iconName="Edit"
-          iconText="Configure your web part"
-          description="Please configure the web part."
-          buttonLabel="Configure"
-          onConfigure={this._onConfigure.bind(this)} />
-      );
-    }
+
 
     return (
       // change 6
