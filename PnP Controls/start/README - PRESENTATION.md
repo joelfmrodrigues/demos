@@ -37,12 +37,6 @@ npm install @pnp/spfx-controls-react --save --save-exact
 npm install @pnp/spfx-property-controls --save --save-exact
 ```
 
-Configure resource file by adding the below to config/config.json
-
-```TypeScript
-"PropertyControlStrings": "node_modules/@pnp/spfx-property-controls/lib/loc/{locale}.js"
-```
-
 ## Demo
 
 Start by checking the imported references to property pane controls and PnPJS into your web part
@@ -127,6 +121,7 @@ PropertyFieldTermPicker('term', {
   initialValues: this.properties.term,
   allowMultipleSelections: false,
   excludeSystemGroup: false,
+  limitByTermsetNameOrID: "Department",
   onPropertyChange: this.onPropertyPaneFieldChanged.bind(this),
   properties: this.properties,
   context: this.context,
