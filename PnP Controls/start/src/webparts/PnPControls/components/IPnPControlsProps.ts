@@ -13,4 +13,5 @@ export interface IPnPControlsProps {
 
 export interface IPnPControlsState {
   items?: any[];
+  noItemsPlaceholder?: boolean;
 }
