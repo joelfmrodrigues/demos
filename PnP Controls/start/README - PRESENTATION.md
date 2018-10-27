@@ -146,6 +146,7 @@ For simplicity, it can be created next to the properties interface
 ```TypeScript
 export interface IPnPControlsState {
   items?: any[];
+  noItemsPlaceholder?: boolean;
 }
 ```
 
@@ -165,6 +166,7 @@ constructor(props: IPnPControlsProps) {
 
   this.state = {
     items: [],
+    noItemsPlaceholder: false
   };
 }
 ```
@@ -219,7 +221,8 @@ private async _getItems() {
 
   // update state
   this.setState({
-    items: items ? items : []
+    items: items ? items : [],
+    noItemsPlaceholder: items.length === 0
   });
   console.log('List Items:', this.state.items);
 }
@@ -290,7 +293,7 @@ public render(): React.ReactElement<IPnPControlsProps> {
     );
   }
   return (
-    this.state.items.length === 0 ?
+    this.state.noItemsPlaceholder ?
       (
         <Placeholder
           iconName="InfoSolid"

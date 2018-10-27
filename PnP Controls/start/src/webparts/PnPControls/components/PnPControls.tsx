@@ -19,6 +19,7 @@ export default class PnPControls extends React.Component<IPnPControlsProps, IPnP
 
     this.state = {
       items: [],
+      noItemsPlaceholder: false
     };
   }
 
