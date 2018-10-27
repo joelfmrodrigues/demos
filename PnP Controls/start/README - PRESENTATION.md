@@ -127,6 +127,7 @@ PropertyFieldTermPicker('term', {
   initialValues: this.properties.term,
   allowMultipleSelections: false,
   excludeSystemGroup: false,
+  limitByTermsetNameOrID: "Department",
   onPropertyChange: this.onPropertyPaneFieldChanged.bind(this),
   properties: this.properties,
   context: this.context,
