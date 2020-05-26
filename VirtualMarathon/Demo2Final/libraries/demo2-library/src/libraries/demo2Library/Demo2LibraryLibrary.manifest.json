@@ -1,0 +1,9 @@
+{
+  "id": "ed8886b4-3367-4072-ac01-17d65c39ef7b",
+  "alias": "Demo2LibraryLibrary",
+  "componentType": "Library",
+
+  // The "*" signifies that the version should be taken from the package.json
+  "version": "*",
+  "manifestVersion": 2
+}
