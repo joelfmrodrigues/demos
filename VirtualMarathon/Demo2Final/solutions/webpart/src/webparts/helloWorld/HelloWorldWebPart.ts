@@ -19,7 +19,7 @@ export default class HelloWorldWebPart extends BaseClientSideWebPart <IHelloWorl
   public render(): void {
 
     const lib = new Demo2LibraryLibrary();
-    const name = lib.name() + "-hello!!!";
+    const name = lib.name() + "-this is super fast!!";
 
     this.domElement.innerHTML = `
       <div class="${ styles.helloWorld }">
