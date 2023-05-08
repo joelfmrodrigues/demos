@@ -1,0 +1,46 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/spfx-build/package-solution.schema.json",
+  "solution": {
+    "name": "speurope-demo-client-side-solution",
+    "id": "afbebb2a-135e-457f-a002-2d0816a9744f",
+    "version": "1.0.0.0",
+    "includeClientSideAssets": true,
+    "skipFeatureDeployment": true,
+    "isDomainIsolated": false,
+    "webApiPermissionRequests": [
+      {
+        "resource": "sp-europe-demo",
+        "scope": "user_impersonation"
+      }
+    ],
+    "developer": {
+      "name": "",
+      "websiteUrl": "",
+      "privacyUrl": "",
+      "termsOfUseUrl": "",
+      "mpnId": "Undefined-1.17.1"
+    },
+    "metadata": {
+      "shortDescription": {
+        "default": "speurope-demo description"
+      },
+      "longDescription": {
+        "default": "speurope-demo description"
+      },
+      "screenshotPaths": [],
+      "videoUrl": "",
+      "categories": []
+    },
+    "features": [
+      {
+        "title": "speurope-demo Feature",
+        "description": "The feature that activates elements of the speurope-demo solution.",
+        "id": "ba8c9b49-c511-44dd-8441-c5ed0405082e",
+        "version": "1.0.0.0"
+      }
+    ]
+  },
+  "paths": {
+    "zippedPackage": "solution/speurope-demo.sppkg"
+  }
+}
