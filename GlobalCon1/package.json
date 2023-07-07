@@ -51,7 +51,7 @@
     "gulp-stylelint": "^11.0.0",
     "jest": "^23.6.0",
     "jest-junit": "^10.0.0",
-    "stylelint": "^13.0.0",
+    "stylelint": "^15.10.1",
     "stylelint-config-standard": "^19.0.0",
     "stylelint-scss": "^3.13.0",
     "typescript": "~3.7.x",
